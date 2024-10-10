@@ -1,10 +1,11 @@
 public class Prob6 {
 
     public static void main(String[] args) {
+        Prob6 p = new Prob6();
+
         for (int x = 0; x < 21; x++) {
-            boolean prim = prim(x);
             System.out.println(x);
-            System.out.println(prim ? "prim" : "not prim");
+            System.out.println(p.prim(x) ? "prim" : "not prim");
         }
     }
 

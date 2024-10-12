@@ -9,7 +9,7 @@ public class Prob6 {
         }
     }
 
-    public static boolean prim(int nr) {
+    public boolean prim(int nr) {
         if (nr < 2)
             return false;
         for (int i = 2; i < nr; i++) {

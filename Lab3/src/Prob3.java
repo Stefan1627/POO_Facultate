@@ -1,48 +1,41 @@
 class MyQueue {
-    // Membri de date
     private MyArray array;
     private final int Infinit = 9500;
-    private int front; // Indicele primului element
-    private int rear;  // Indicele ultimului element
-    private int numElements; // Numarul de elemente din coada
+    private int front;
+    private int rear;
+    private int numElements;
 
-    // Constructor
     public MyQueue() {
-        array = new MyArray(); // Coada foloseste MyArray pentru a stoca elementele
+        array = new MyArray();
         front = 0;
         rear = -1;
         numElements = 0;
     }
 
-    // Returneaza numarul de elemente din coada
     public int getSize() {
         return numElements;
     }
 
-    // Adauga un element in coada
     public void enqueue(int value) {
-        rear++; // Incrementam indicele ultimului element
-        array.set(rear, value); // Adaugam valoarea in array
-        numElements++; // Incrementam numarul de elemente
+        rear++;
+        array.set(rear, value);
+        numElements++;
     }
 
-    // Scoate si returneaza primul element din coada
     public int dequeue() {
         if (isEmpty()) {
-            return Infinit; // Daca coada este goala, returnam Infinit
+            return Infinit;
         }
-        int value = array.get(front); // Preluam valoarea de la front
-        front++; // Incrementam indicele primului element
-        numElements--; // Decrementam numarul de elemente
+        int value = array.get(front);
+        front++;
+        numElements--;
         return value;
     }
 
-    // Verifica daca coada este goala
     public boolean isEmpty() {
         return numElements == 0;
     }
 
-    // Returneaza o reprezentare sub forma de string a cozii
     public String toString() {
         if (isEmpty()) {
             return "[]";

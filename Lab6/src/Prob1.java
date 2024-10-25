@@ -157,7 +157,7 @@ class Square extends Rectangle {
     }
 }
 
-public class Main {
+public class Prob1 {
         public static void main(String args[]) {
             boolean ok = true;
             //Verificarea relatiilor de mostenire

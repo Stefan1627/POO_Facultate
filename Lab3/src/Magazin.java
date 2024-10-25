@@ -19,7 +19,7 @@ class Produs {
     }
 }
 
-class Magazin {
+public class Magazin {
     private String nume;
     private Produs[] produse;
 
@@ -46,7 +46,7 @@ class Magazin {
     }
 }
 
-public class Prob2 {
+class Prob2 {
     public static void main(String[] args) {
         Magazin magazin = new Magazin("Magazinul Meu", new Produs[] {
                 new Produs("Kox", 80, 10),

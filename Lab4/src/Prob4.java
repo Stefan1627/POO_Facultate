@@ -1,8 +1,8 @@
 import java.util.Vector;
 
 class Person {
-    String name;
-    String address;
+    private String name;
+    private String address;
 
     public Person(String name, String address) {
         this.name = name;
@@ -28,29 +28,32 @@ class Person {
 }
 
 class Student extends Person {
-    Vector<String> courses;
-    Vector<Integer> grades;
+    private Vector<String> course;
+    private Vector<Integer> grades;
 
     public Student(String name, String address) {
         super(name, address);
-        this.courses = new Vector<>();  // Initialize courses
-        this.grades = new Vector<>();   // Initialize grades
+        course = new Vector<>();
+        grades = new Vector<>();
     }
 
     @Override
     public String toString() {
-        return "Student [name=" + name + ", address=" + address + ", courses=" + courses + ", grades=" + grades + "]";
+        return "Student{" +
+                "name=" + getName() +
+                ", address=" + getAddress() +
+                ", course=" + course +
+                ", grades=" + grades +
+                '}';
     }
 
-    public void addCourseGrade(String course, Integer grade) {
-        this.courses.add(course);  // Add course to the list
-        this.grades.add(grade);    // Add grade to the list
+    public void addCourseGrade(String course, int grades) {
+        this.course.add(course);
+        this.grades.add(grades);
     }
 
     public void printGrades() {
-        for (Integer grade : grades) {
-            System.out.println(grade);
-        }
+        System.out.println(grades);
     }
 
     public double getAverageGrade() {
@@ -63,16 +66,16 @@ class Student extends Person {
 }
 
 class Teacher extends Person {
-    Vector<String> courses;
-
+    private Vector<String> courses;
     public Teacher(String name, String address) {
         super(name, address);
-        this.courses = new Vector<>();  // Initialize courses
     }
 
     @Override
     public String toString() {
-        return "Teacher [name=" + name + ", address=" + address + ", courses=" + courses + "]";
+        return "Teacher{" +
+                "courses=" + courses +
+                '}';
     }
 
     public boolean addCourse(String course) {
@@ -92,34 +95,34 @@ class Teacher extends Person {
     }
 }
 
-public class Prob4 {
-    public static void main(String[] args) {
-        Student student;
-        Teacher teacher;
-        Person person;
+class Test4 {
+    public static void main(String args[]) {
+        Person student, teacher, person;
         student = new Student("Popescu Ion", "Bucuresti");
         teacher = new Teacher("Ionescu Gigel", "Bucuresti");
         person = new Person("Maria", "Iasi");
-
         assert (person.getName().equals("Maria")) : "Metoda getName din clasa Person nu este implementata corect";
-        assert (teacher.addCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este implementata corect";
-        assert (teacher.addCourse("Algoritmica")) : "Metoda addCourse din clasa Teacher nu este implementata corect";
-        assert (teacher.addCourse("Matematica")) : "Metoda addCourse din clasa Teacher nu este implementata corect";
-        assert (!teacher.addCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este implementata corect";
-        assert (teacher.removeCourse("Programare")) : "Metoda removeCourse din clasa Teacher nu este implementata corect";
-        assert (!teacher.addCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este implementata corect";
-
-        student.addCourseGrade("Programare", 10);
-        student.addCourseGrade("Algoritmica", 9);
-        student.addCourseGrade("Matematica", 8);
-
-        assert (Math.abs(student.getAverageGrade() - 9.00) <= 0.001) : "Metoda getAverageGrade din clasa Student nu a fost implementata corect";
-
-        student.printGrades();
-
-        // Ce metoda toString se va apela? Din ce clasa?
-        System.out.println(student);  // Calls Student's toString method
-        System.out.println(person);   // Calls Person's toString method
+        assert (((Teacher) teacher).addCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este " +
+                "implementata corect";
+        assert (((Teacher) teacher).addCourse("Algoritmica")) : "Metoda addCourse din clasa Teacher nu este " +
+                "implementata corect";
+        assert (((Teacher) teacher).addCourse("Matematica")) : "Metoda addCourse din clasa Teacher nu este " +
+                "implementata corect";
+        assert (!((Teacher) teacher).addCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este " +
+                "implementata corect";
+        assert (((Teacher) teacher).removeCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este " +
+                "implementata corect";
+        assert (!((Teacher) teacher).addCourse("Programare")) : "Metoda addCourse din clasa Teacher nu este " +
+                "implementata corect";
+        ((Student) student).addCourseGrade("Programare", 10);
+        ((Student) student).addCourseGrade("Algoritmica", 9);
+        ((Student) student).addCourseGrade("Matematica", 8);
+        assert (Math.abs(((Student) student).getAverageGrade() - 9.00) <= 0.001) : "Metoda getAverageGrade din clasa " +
+                "Student nu a fost implementat corect";
+        ((Student) student).printGrades();
+        //Ce metoda toString se va apela? Din ce clasa?
+        System.out.println(student);
+        System.out.println(person);
         System.out.println("Felicitari! Problema a fost rezolvata corect!");
     }
 }

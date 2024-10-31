@@ -37,7 +37,7 @@ class Patrulater {
 
 class Paralelogram extends Patrulater {
     public Paralelogram(int latura1, int latura2, int latura3, int latura4,
-                      double unghi1, double unghi2, double unghi3, double unghi4) {
+                        double unghi1, double unghi2, double unghi3, double unghi4) {
         super(latura1, latura2, latura3, latura4, unghi1, unghi2, unghi3, unghi4);
     }
 
@@ -62,13 +62,12 @@ class Romb extends Paralelogram {
 
 class Dreptunghi extends Paralelogram {
 
-
     public Dreptunghi(int latura1, int latura2, int latura3, int latura4) {
-        super(latura1, latura2, latura3, latura4, 0 , 0, 0, 0);
+        super(latura1, latura2, latura3, latura4, 0, 0, 0, 0);
     }
 
-    public double getArieDreptunghi() {
-        return latura1 * latura2;
+    public double getArie() {
+        return latura1*latura2;
     }
 }
 
@@ -76,13 +75,7 @@ class Patrat extends Dreptunghi {
     public Patrat (int latura) {
         super(latura, latura, latura, latura);
     }
-
-    public double getArie() {
-        return latura1 * latura2;
-    }
 }
-
-
 
 public class Prob1 {
     public static void main(String[] args) {

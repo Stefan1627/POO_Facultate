@@ -1,7 +1,7 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-/*abstract class Shape {
+abstract class Shape {
     private String color;
     private boolean filled;
 
@@ -157,41 +157,25 @@ class Square extends Rectangle {
     }
 }
 
-public class Prob1 {
-        public static void main(String args[]) {
-            boolean ok = true;
-            //Verificarea relatiilor de mostenire
-            Shape obj1;
-            obj1 = new Square();
-            obj1 = new Rectangle();
-            obj1 = new Circle();
-            Rectangle obj3 = new Square();
-            //Verificarea constructorilor
-            Constructor[] allConstructors = Square.class.getDeclaredConstructors();
-            if(allConstructors.length != 3) {
-                System.out.println("Clasa Square NU are definiti toti constructorii!");
-                ok = false;
-            }
-            Circle circle = new Circle(2.0, "green", true);
-            Square square = new Square(5.0, "black", true);
-            if(!Modifier.isAbstract(Shape.class.getModifiers())) {
-                System.out.println("Clasa Shape NU este abstracta!");
-                ok = false;
-            }
-            if(!Shape.class.isAssignableFrom(Square.class) && !Rectangle.class.isAssignableFrom(Square.class)) {
-                System.out.println("Clasele NU respecta relatia de mostenire descrisa!");
-                ok = false;
-            }
-            if(!circle.isFilled() || !circle.getColor().equals("green")) {
-                System.out.println("Constructorul din clasa Circle NU este definit conform specificatiilor!");
-                ok = false;
-            } else if(!square.isFilled() || !square.getColor().equals("black") || square.getWidth() != square.getLength()) {
-                System.out.println("Constructorul din clasa Square NU este definit conform specificatiilor!");
-                ok = false;
-            } else if(ok){
-                System.out.println("Au trecut toate testele!");
-            }
-        }
-    }
+public class Prob2 {
+    public static void main(String[] args) {
+        Rectangle ret = new Rectangle();
+        if (ret instanceof Shape)
+            System.out.println("Da");
 
- */
+        if (ret instanceof Square)
+            System.out.println("Da1");
+
+        Square square = new Square();
+        if (square instanceof Shape)
+            System.out.println("Da2");
+        if (square instanceof Rectangle)
+            System.out.println("Da3");
+        /*if (square instanceof Circle) {
+            System.out.println("Da4");
+        }
+        else {
+            System.out.println("Da5");
+        }*/
+    }
+}

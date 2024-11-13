@@ -1,18 +1,22 @@
+
+
+/**
+ *
+ * @author Nan Mihai
+ */
 class Animal {
     private static String nume;
     private static String culoare;
 
     static {
-        System.out.println("Bloc 2 - Animal");
-    }
-
-    {
         System.out.println("Bloc 1 - Animal");
         nume = "Animal";
         culoare = "negru";
     }
 
-
+    {
+        System.out.println("Bloc 2 - Animal");
+    }
 
     public static String getCuloare() {
         return culoare;
@@ -32,13 +36,13 @@ class Caine extends Animal {
     }
 
     {
-        System.out.println("Bloc 4 - Caine");
-        tipRasa = "mica";
+        System.out.println("Bloc 3 - Caine");
+        tipRasa = "mare";
     }
 
     {
-        System.out.println("Bloc 3 - Caine");
-        tipRasa = "mare";
+        System.out.println("Bloc 4 - Caine");
+        tipRasa = "mica";
     }
 }
 
@@ -61,8 +65,8 @@ class SharPei extends Caine {
     }
 }
 
-public class Prob1 {
-    public static void main(String[] args) {
+class Problema1 {
+    public static void main(String args[]) {
         SharPei cutu = new SharPei();
     }
 }

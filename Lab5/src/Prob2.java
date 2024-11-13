@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class MyList {
     private Node head;
     private int size;
@@ -75,7 +77,7 @@ class MyList {
     }
 
 
-    private static class Node {
+    private class Node {
         private Node next;
         private Object data;
 
@@ -107,71 +109,48 @@ class MyList {
     }
 }
 
-class Graph {
-    private MyList[] adjList;  // Liste de adiacență
-    private boolean[] visited; // Vector pentru a marca nodurile vizitate
-    private int numNodes;      // Numărul de noduri din graf
+class Graph extends MyList {
+    private MyList[] adjacencyList;
+    private boolean[] visited;
+    private int numNodes;
 
-    // Constructor care primește numărul de noduri din graf
     public Graph(int numNodes) {
         this.numNodes = numNodes;
-        adjList = new MyList[numNodes + 1]; // Listele de adiacență (1-indexed)
-        visited = new boolean[numNodes + 1]; // Vector de vizitare (1-indexed)
-
-        // Inițializează fiecare listă din listele de adiacență
-        for (int i = 1; i <= numNodes; i++) {
-            adjList[i] = new MyList();
+        adjacencyList = new MyList[numNodes + 1];
+        visited = new boolean[numNodes + 1];
+        for(int i = 0; i <= numNodes; i++) {
+            adjacencyList[i] = new MyList();
         }
     }
 
-    // Adaugă arcul (x, y) în graf
     public void add(int x, int y) {
-        adjList[x].add(y); // Adaugă nodul y în lista de adiacență a nodului x
+        adjacencyList[x].add(y);
     }
 
-    // Parcurgere în adâncime (DFS)
     public void dfs(int start) {
-        // Marchează nodul curent ca vizitat
         visited[start] = true;
-        System.out.print(start + " "); // Afișează nodul vizitat
+        System.out.print(start + " ");
 
-        // Parcurge toți vecinii nodului curent
-        for (int i = 0; i < adjList[start].size(); i++) {
-            int neighbor = (int) adjList[start].get(i);
+        for (int i = 0; i < adjacencyList[start].size(); i++) {
+            int neighbor = (int) adjacencyList[start].get(i);
             if (!visited[neighbor]) {
-                dfs(neighbor); // Recursie pentru vecinii nevizitați
+                dfs(neighbor);
             }
         }
     }
 
-    // Resetează vectorul de vizitare
-    public void resetVisited() {
-        for (int i = 1; i <= numNodes; i++) {
-            visited[i] = false;
-        }
-    }
-
-    // Metodă toString pentru a afișa graful
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= numNodes; i++) {
-            sb.append(i).append(": ");
-            for (int j = 0; j < adjList[i].size(); j++) {
-                sb.append(adjList[i].get(j)).append(" ");
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
+        return "Graph{" +
+                "adjacencyList=" + Arrays.toString(adjacencyList) +
+                ", visited=" + Arrays.toString(visited) +
+                ", numNodes=" + numNodes +
+                '}';
     }
 }
 
-
-
-
-
-public class Prob2 {
-    public static void main(String[] args) {
+class TestGraph {
+    public static void main(String args[]) {
         Graph g = new Graph(8);
         g.add(1, 2);
         g.add(1, 5);

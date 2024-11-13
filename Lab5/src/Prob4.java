@@ -1,21 +1,13 @@
-
-import java.util.Vector;
+import java.util.*;
 
 class Warrior {
-    private int health;
-    private String name;
+    //0 = dead, 100 = full strength
+    public int health;
+    public String name;
 
-    public Warrior(int health, String name) {
+    public Warrior (int health, String name) {
         this.health = health;
         this.name = name;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getDamage() {
@@ -28,7 +20,6 @@ class Warrior {
     }
 }
 
-// Derived class for Snake Warrior
 class SnakeWarrior extends Warrior {
     public SnakeWarrior(int health, String name) {
         super(health, name);
@@ -36,11 +27,10 @@ class SnakeWarrior extends Warrior {
 
     @Override
     public int getDamage() {
-        return 10; // Snake does 10 damage
+        return 10;
     }
 }
 
-// Derived class for Ogre Warrior
 class OgreWarrior extends Warrior {
     public OgreWarrior(int health, String name) {
         super(health, name);
@@ -48,11 +38,10 @@ class OgreWarrior extends Warrior {
 
     @Override
     public int getDamage() {
-        return 6; // Ogre does 6 damage
+        return 6;
     }
 }
 
-// Derived class for Marshmallow Man Warrior
 class MarshmallowManWarrior extends Warrior {
     public MarshmallowManWarrior(int health, String name) {
         super(health, name);
@@ -60,15 +49,14 @@ class MarshmallowManWarrior extends Warrior {
 
     @Override
     public int getDamage() {
-        return 1; // Marshmallow Man does 1 damage
+        return 1;
     }
 }
 
-// Class for handling a pack of warriors
 class WarriorPack {
-    private Vector<Warrior> warriors;
+    private final Vector<Warrior> warriors ;
 
-    public WarriorPack() {
+    public WarriorPack () {
         warriors = new Vector<>();
     }
 
@@ -76,7 +64,10 @@ class WarriorPack {
         warriors.add(newWarrior);
     }
 
-    // Calculates total damage based on the specific damage of each warrior type
+    public Vector<Warrior> getWarriors() {
+        return warriors ;
+    }
+
     public int calculateDamage() {
         int totalDamage = 0;
         for (Warrior warrior : warriors) {
@@ -99,14 +90,12 @@ class WarriorPack {
 public class Prob4 {
     public static void main(String[] args) {
         WarriorPack pack = new WarriorPack();
-        pack.addWarrior(new SnakeWarrior(100, "Serpentor"));
-        pack.addWarrior(new OgreWarrior(100, "Grog"));
-        pack.addWarrior(new MarshmallowManWarrior(100, "Fluffy"));
 
-        // Test damage calculation
+        pack.addWarrior(new SnakeWarrior(100, "Alex"));
+        pack.addWarrior(new OgreWarrior(100, "Alex1"));
+        pack.addWarrior(new MarshmallowManWarrior(100, "Alex2"));
+
         System.out.println("Total damage: " + pack.calculateDamage());
-
-        // Test toString methods
         System.out.println(pack);
     }
 }

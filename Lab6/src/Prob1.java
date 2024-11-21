@@ -2,8 +2,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 /*abstract class Shape {
-    private String color;
-    private boolean filled;
+    protected String color;
+    protected boolean filled;
 
     public Shape() {
         this("red", true);
@@ -35,13 +35,87 @@ import java.lang.reflect.Modifier;
     public abstract String toString();
 }
 
+class Rectangle extends Shape {
+    protected double width;
+    protected double lenght;
+
+    public Rectangle() {
+        super();
+        width = 0.0;
+        lenght = 0.0;
+    }
+
+    @Override
+    public double getArea() {
+        return width * lenght;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * width + 2 * lenght;
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "width=" + width +
+                ", lenght=" + lenght +
+                '}';
+    }
+
+    public Rectangle(double width, double lenght) {
+        this.width = width;
+        this.lenght = lenght;
+    }
+
+    public Rectangle(double width, double lenght, String color, boolean filled) {
+        super(color, filled);
+        this.width = width;
+        this.lenght = lenght;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(double lenght) {
+        this.lenght = lenght;
+    }
+}
+
 class Circle extends Shape {
-    private double radius;
+    protected double radius;
+
     public Circle() {
-        this(0);
+        super();
+        radius = 0.0;
+    }
+
+    @Override
+    public double getArea() {
+        return radius * radius * 3.14;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * radius * 3.14;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle";
     }
 
     public Circle(double radius) {
+        super();
         this.radius = radius;
     }
 
@@ -56,68 +130,6 @@ class Circle extends Shape {
 
     public void setRadius(double radius) {
         this.radius = radius;
-    }
-
-    public double getArea() {
-        return Math.PI * radius * radius;
-    }
-
-    public double getPerimeter() {
-        return 2 * Math.PI * radius;
-    }
-
-    @Override
-    public String toString() {
-        return "Circle: " + radius + ", " + getColor() + ", " + isFilled();
-    }
-}
-
-class Rectangle extends Shape {
-    private  double width;
-    private double length;
-
-    public Rectangle() {
-        this(0, 0);
-    }
-
-    public Rectangle(double width, double length) {
-        this.width = width;
-        this.length = length;
-    }
-
-    public Rectangle(double width, double length, String color, boolean filled) {
-        super(color, filled);
-        this.width = width;
-        this.length = length;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getLength() {
-        return length;
-    }
-    public void setLength(double length) {
-        this.length = length;
-    }
-
-    public double getArea() {
-        return width * length;
-    }
-
-    public double getPerimeter() {
-        return 2 * width + 2 * length;
-    }
-
-    @Override
-    public String toString() {
-        return "rectangle: " + width + ", " + length + ", "
-                + getColor() + ", " + isFilled();
     }
 }
 
@@ -139,59 +151,63 @@ class Square extends Rectangle {
     }
 
     public void setSide(double side) {
-        super.setLength(side);
-        super.setWidth(side);
-    }
-
-    public void setWidth(double width) {
-        super.setWidth(width);
-    }
-
-    public void setLength(double length) {
-        super.setLength(length);
+        setLenght(side);
+        setWidth(side);
     }
 
     @Override
     public String toString() {
-        return "Square: " + getSide() + ", " + getWidth() + ", " + getLength();
+        return "Square";
+    }
+
+    @Override
+    public void setWidth(double side) {
+        super.setWidth(side);
+    }
+
+    @Override
+    public void setLenght(double side) {
+        super.setLenght(side);
+    }
+
+    public double getLength() {
+        return super.getLenght();
     }
 }
 
 public class Prob1 {
-        public static void main(String args[]) {
-            boolean ok = true;
-            //Verificarea relatiilor de mostenire
-            Shape obj1;
-            obj1 = new Square();
-            obj1 = new Rectangle();
-            obj1 = new Circle();
-            Rectangle obj3 = new Square();
-            //Verificarea constructorilor
-            Constructor[] allConstructors = Square.class.getDeclaredConstructors();
-            if(allConstructors.length != 3) {
-                System.out.println("Clasa Square NU are definiti toti constructorii!");
-                ok = false;
-            }
-            Circle circle = new Circle(2.0, "green", true);
-            Square square = new Square(5.0, "black", true);
-            if(!Modifier.isAbstract(Shape.class.getModifiers())) {
-                System.out.println("Clasa Shape NU este abstracta!");
-                ok = false;
-            }
-            if(!Shape.class.isAssignableFrom(Square.class) && !Rectangle.class.isAssignableFrom(Square.class)) {
-                System.out.println("Clasele NU respecta relatia de mostenire descrisa!");
-                ok = false;
-            }
-            if(!circle.isFilled() || !circle.getColor().equals("green")) {
-                System.out.println("Constructorul din clasa Circle NU este definit conform specificatiilor!");
-                ok = false;
-            } else if(!square.isFilled() || !square.getColor().equals("black") || square.getWidth() != square.getLength()) {
-                System.out.println("Constructorul din clasa Square NU este definit conform specificatiilor!");
-                ok = false;
-            } else if(ok){
-                System.out.println("Au trecut toate testele!");
-            }
+    public static void main(String args[]) {
+        boolean ok = true;
+        //Verificarea relatiilor de mostenire
+        Shape obj1;
+        obj1 = new Square();
+        obj1 = new Rectangle();
+        obj1 = new Circle();
+        Rectangle obj3 = new Square();
+        //Verificarea constructorilor
+        Constructor[] allConstructors = Square.class.getDeclaredConstructors();
+        if(allConstructors.length != 3) {
+            System.out.println("Clasa Square NU are definiti toti constructorii!");
+            ok = false;
+        }
+        Circle circle = new Circle(2.0, "green", true);
+        Square square = new Square(5.0, "black", true);
+        if(!Modifier.isAbstract(Shape.class.getModifiers())) {
+            System.out.println("Clasa Shape NU este abstracta!");
+            ok = false;
+        }
+        if(!Shape.class.isAssignableFrom(Square.class) && !Rectangle.class.isAssignableFrom(Square.class)) {
+            System.out.println("Clasele NU respecta relatia de mostenire descrisa!");
+            ok = false;
+        }
+        if(!circle.isFilled() || !circle.getColor().equals("green")) {
+            System.out.println("Constructorul din clasa Circle NU este definit conform specificatiilor!");
+            ok = false;
+        } else if(!square.isFilled() || !square.getColor().equals("black") || square.getWidth() != square.getLength()) {
+            System.out.println("Constructorul din clasa Square NU este definit conform specificatiilor!");
+            ok = false;
+        } else if(ok){
+            System.out.println("Au trecut toate testele!");
         }
     }
-
- */
+}*/

@@ -1,9 +1,10 @@
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 abstract class Shape {
-    private String color;
-    private boolean filled;
+    protected String color;
+    protected boolean filled;
 
     public Shape() {
         this("red", true);
@@ -35,13 +36,87 @@ abstract class Shape {
     public abstract String toString();
 }
 
+class Rectangle extends Shape {
+    protected double width;
+    protected double lenght;
+
+    public Rectangle() {
+        super();
+        width = 0.0;
+        lenght = 0.0;
+    }
+
+    @Override
+    public double getArea() {
+        return width * lenght;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * width + 2 * lenght;
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "width=" + width +
+                ", lenght=" + lenght +
+                '}';
+    }
+
+    public Rectangle(double width, double lenght) {
+        this.width = width;
+        this.lenght = lenght;
+    }
+
+    public Rectangle(double width, double lenght, String color, boolean filled) {
+        super(color, filled);
+        this.width = width;
+        this.lenght = lenght;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getLenght() {
+        return lenght;
+    }
+
+    public void setLenght(double lenght) {
+        this.lenght = lenght;
+    }
+}
+
 class Circle extends Shape {
-    private double radius;
+    protected double radius;
+
     public Circle() {
-        this(0);
+        super();
+        radius = 0.0;
+    }
+
+    @Override
+    public double getArea() {
+        return radius * radius * 3.14;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * radius * 3.14;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle";
     }
 
     public Circle(double radius) {
+        super();
         this.radius = radius;
     }
 
@@ -56,68 +131,6 @@ class Circle extends Shape {
 
     public void setRadius(double radius) {
         this.radius = radius;
-    }
-
-    public double getArea() {
-        return Math.PI * radius * radius;
-    }
-
-    public double getPerimeter() {
-        return 2 * Math.PI * radius;
-    }
-
-    @Override
-    public String toString() {
-        return "Circle: " + radius + ", " + getColor() + ", " + isFilled();
-    }
-}
-
-class Rectangle extends Shape {
-    private  double width;
-    private double length;
-
-    public Rectangle() {
-        this(0, 0);
-    }
-
-    public Rectangle(double width, double length) {
-        this.width = width;
-        this.length = length;
-    }
-
-    public Rectangle(double width, double length, String color, boolean filled) {
-        super(color, filled);
-        this.width = width;
-        this.length = length;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public double getLength() {
-        return length;
-    }
-    public void setLength(double length) {
-        this.length = length;
-    }
-
-    public double getArea() {
-        return width * length;
-    }
-
-    public double getPerimeter() {
-        return 2 * width + 2 * length;
-    }
-
-    @Override
-    public String toString() {
-        return "rectangle: " + width + ", " + length + ", "
-                + getColor() + ", " + isFilled();
     }
 }
 
@@ -139,43 +152,40 @@ class Square extends Rectangle {
     }
 
     public void setSide(double side) {
-        super.setLength(side);
-        super.setWidth(side);
-    }
-
-    public void setWidth(double width) {
-        super.setWidth(width);
-    }
-
-    public void setLength(double length) {
-        super.setLength(length);
+        setLenght(side);
+        setWidth(side);
     }
 
     @Override
     public String toString() {
-        return "Square: " + getSide() + ", " + getWidth() + ", " + getLength();
+        return "Square";
+    }
+
+    @Override
+    public void setWidth(double side) {
+        super.setWidth(side);
+    }
+
+    @Override
+    public void setLenght(double side) {
+        super.setLenght(side);
+    }
+
+    public double getLength() {
+        return super.getLenght();
     }
 }
 
 public class Prob2 {
     public static void main(String[] args) {
-        Rectangle ret = new Rectangle();
-        if (ret instanceof Shape)
-            System.out.println("Da");
-
-        if (ret instanceof Square)
-            System.out.println("Da1");
-
-        Square square = new Square();
-        if (square instanceof Shape)
-            System.out.println("Da2");
-        if (square instanceof Rectangle)
-            System.out.println("Da3");
-        /*if (square instanceof Circle) {
-            System.out.println("Da4");
-        }
-        else {
-            System.out.println("Da5");
-        }*/
+        Shape c1 = new Circle();
+        Square sq = (Square) c1;
+        
+//Conversie 2
+        Rectangle r = new Rectangle(5.0, 5.0);
+        sq = (Square) r;
+//Conversie 3
+        sq = new Square(7.0);
+        r = sq;
     }
 }

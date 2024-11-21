@@ -1,31 +1,31 @@
 import java.util.*;
 
-// Interfața Persoana, care extinde Comparable pentru a permite compararea
 interface Persoana extends Comparable<Persoana> {
-    public double calculMedieGenerala();
+    public double calculMedie();
     public String getNume();
     public void setNume(String nume);
     public void addMedie(double medie);
 }
 
-// Clasa Student care implementează interfața Persoana
 class Student implements Persoana {
     private String nume;
-    private List<Double> medii;
+    private List<Double> medie;
 
     public Student(String nume) {
         this.nume = nume;
-        medii = new ArrayList<>();
+        medie = new ArrayList<>();
     }
 
+
     @Override
-    public double calculMedieGenerala() {
-        if (medii.isEmpty()) return 0;
-        double suma = 0;
-        for (double medie : medii) {
-            suma += medie;
+    public double calculMedie() {
+        if (medie.isEmpty())
+            return 0;
+        double sum = 0;
+        for (Double aDouble : medie) {
+            sum += aDouble;
         }
-        return suma / medii.size();
+        return sum/medie.size();
     }
 
     @Override
@@ -40,23 +40,26 @@ class Student implements Persoana {
 
     @Override
     public void addMedie(double medie) {
-        medii.add(medie);
+        this.medie.add(medie);
     }
 
     @Override
-    public int compareTo(Persoana other) {
-        int comparareNume = nume.compareTo(other.getNume());
-        if (comparareNume == 0) {
-            double medieThis = calculMedieGenerala();
-            double medieOther = other.calculMedieGenerala();
-            return Double.compare(medieOther, medieThis);
+    public int compareTo(Persoana o) {
+        int comparaNume = o.getNume().compareTo(this.nume);
+        if (comparaNume == 0) {
+            double medieThis = calculMedie();
+            double medieOther = o.calculMedie();
+            return Double.compare(medieThis, medieOther);
         }
-        return comparareNume;
+        return comparaNume;
     }
 
     @Override
     public String toString() {
-        return "Student: " + nume + ", Medie Generală: " + calculMedieGenerala();
+        return "Student{" +
+                "nume='" + nume + '\'' +
+                ", medie=" + medie +
+                '}';
     }
 }
 
